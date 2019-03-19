@@ -1,6 +1,6 @@
 Name:           gpumon
 Version:        0.11.0
-Release:        5%{?dist}
+Release:        13%{?dist}
 Summary:        RRDD GPU metrics plugin
 Group:          System/Hypervisor
 License:        ISC
