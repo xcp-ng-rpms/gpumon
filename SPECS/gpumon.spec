@@ -1,13 +1,17 @@
 Name:           gpumon
-Version:        0.11.0
-Release:        13%{?dist}
+Version:        0.15.0
+Release:        1%{?dist}
 Summary:        RRDD GPU metrics plugin
 Group:          System/Hypervisor
 License:        ISC
 URL:            https://github.com/xenserver/gpumon
-Source0:        https://code.citrite.net/rest/archive/latest/projects/XSU/repos/%{name}/archive?at=v%{version}&format=tar.gz&prefix=%{name}-%{version}#/%{name}-%{version}.tar.gz
-Provides: gitsha(https://code.citrite.net/rest/archive/latest/projects/XSU/repos/gpumon/archive?at=v0.11.0&format=tar.gz&prefix=gpumon-0.11.0#/gpumon-0.11.0.tar.gz) = 291422b669f42940f5c259b558a773fff2b9ddd8
-Source1:        xcp-rrdd-gpumon.service
+
+Source0: https://code.citrite.net/rest/archive/latest/projects/XSU/repos/gpumon/archive?at=v0.15.0&format=tar.gz&prefix=gpumon-0.15.0#/gpumon-0.15.0.tar.gz
+Source1: SOURCES/gpumon/xcp-rrdd-gpumon.service
+
+
+Provides: gitsha(https://code.citrite.net/rest/archive/latest/projects/XSU/repos/gpumon/archive?at=v0.15.0&format=tar.gz&prefix=gpumon-0.15.0#/gpumon-0.15.0.tar.gz) = e0c84a8b32d16ef4a62de5b39333df119c7c0a26
+
 BuildRoot:      %{_tmppath}/%{name}-%{version}-root
 BuildRequires:  gdk-devel
 BuildRequires:  xs-opam-repo
@@ -47,6 +51,19 @@ DESTDIR=%{buildroot} %{__make} install
 %{_unitdir}/xcp-rrdd-gpumon.service
 
 %changelog
+* Tue Dec 04 2018 Christian Lindig <christian.lindig@citrix.com> - 0.15.0-1
+- Deprecated xcp in favour of xapi-idl.
+
+* Fri Nov 16 2018 Christian Lindig <christian.lindig@citrix.com> - 0.14.0-1
+- New ocaml-rpc
+
+* Thu Oct 25 2018 Christian Lindig <christian.lindig@citrix.com> - 0.13.0-1
+- XSI-131 use correct versioned interface fn's
+
+* Tue Oct 09 2018 Christian Lindig <christian.lindig@citrix.com> - 0.12.0-1
+- CP-29621 Port from Oasis to Dune
+- CP-29621 Make Travis work using mock modules
+
 * Mon Feb 19 2018 Christian Lindig <christian.lindig@citrix.com> - 0.11.0-1
 - Use String.lowercase_ascii over deprecated String.lowercase
 - CA-283715: Bind API call declarations to implementations
