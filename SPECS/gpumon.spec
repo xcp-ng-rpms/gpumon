@@ -1,16 +1,16 @@
 Name:           gpumon
-Version:        0.15.0
-Release:        1%{?dist}
+Version:        0.17.0
+Release:        2%{?dist}
 Summary:        RRDD GPU metrics plugin
 Group:          System/Hypervisor
 License:        ISC
 URL:            https://github.com/xenserver/gpumon
 
-Source0: https://code.citrite.net/rest/archive/latest/projects/XSU/repos/gpumon/archive?at=v0.15.0&format=tar.gz&prefix=gpumon-0.15.0#/gpumon-0.15.0.tar.gz
+Source0: https://code.citrite.net/rest/archive/latest/projects/XSU/repos/gpumon/archive?at=v0.17.0&format=tar.gz&prefix=gpumon-0.17.0#/gpumon-0.17.0.tar.gz
 Source1: SOURCES/gpumon/xcp-rrdd-gpumon.service
 
 
-Provides: gitsha(https://code.citrite.net/rest/archive/latest/projects/XSU/repos/gpumon/archive?at=v0.15.0&format=tar.gz&prefix=gpumon-0.15.0#/gpumon-0.15.0.tar.gz) = e0c84a8b32d16ef4a62de5b39333df119c7c0a26
+Provides: gitsha(https://code.citrite.net/rest/archive/latest/projects/XSU/repos/gpumon/archive?at=v0.17.0&format=tar.gz&prefix=gpumon-0.17.0#/gpumon-0.17.0.tar.gz) = 76ab2c7445157b0b9e577ea92690c856c5a226cd
 
 BuildRoot:      %{_tmppath}/%{name}-%{version}-root
 BuildRequires:  gdk-devel
@@ -51,6 +51,19 @@ DESTDIR=%{buildroot} %{__make} install
 %{_unitdir}/xcp-rrdd-gpumon.service
 
 %changelog
+* Fri Aug 23 2019 Edwin Török <edvin.torok@citrix.com> - 0.17.0-2
+- bump packages after xs-opam update
+
+* Wed Jun 05 2019 Christian Lindig <christian.lindig@citrix.com> - 0.17.0-1
+- CP-31124: Receive uuid from Xapi and use it to filter metadata.
+- Add mock for get_vgpu_for_uuid.
+
+* Thu Mar 14 2019 Christian Lindig <christian.lindig@citrix.com> - 0.16.0-1
+- Use Dune profile release
+- Add logging around signal handling
+- Check return value of malloc()
+- Use OCaml 4.07 for Travis
+
 * Tue Dec 04 2018 Christian Lindig <christian.lindig@citrix.com> - 0.15.0-1
 - Deprecated xcp in favour of xapi-idl.
 
