@@ -1,16 +1,16 @@
 Name:           gpumon
-Version:        0.17.0
-Release:        2%{?dist}
+Version:        0.18.0
+Release:        1%{?dist}
 Summary:        RRDD GPU metrics plugin
 Group:          System/Hypervisor
 License:        ISC
 URL:            https://github.com/xenserver/gpumon
 
-Source0: https://code.citrite.net/rest/archive/latest/projects/XSU/repos/gpumon/archive?at=v0.17.0&format=tar.gz&prefix=gpumon-0.17.0#/gpumon-0.17.0.tar.gz
+Source0: https://code.citrite.net/rest/archive/latest/projects/XSU/repos/gpumon/archive?at=v0.18.0&format=tar.gz&prefix=gpumon-0.18.0#/gpumon-0.18.0.tar.gz
 Source1: SOURCES/gpumon/xcp-rrdd-gpumon.service
 
 
-Provides: gitsha(https://code.citrite.net/rest/archive/latest/projects/XSU/repos/gpumon/archive?at=v0.17.0&format=tar.gz&prefix=gpumon-0.17.0#/gpumon-0.17.0.tar.gz) = 76ab2c7445157b0b9e577ea92690c856c5a226cd
+Provides: gitsha(https://code.citrite.net/rest/archive/latest/projects/XSU/repos/gpumon/archive?at=v0.18.0&format=tar.gz&prefix=gpumon-0.18.0#/gpumon-0.18.0.tar.gz) = 23164e42d7a466475e67e98046f4be647b6d790d
 
 BuildRoot:      %{_tmppath}/%{name}-%{version}-root
 BuildRequires:  gdk-devel
@@ -51,6 +51,10 @@ DESTDIR=%{buildroot} %{__make} install
 %{_unitdir}/xcp-rrdd-gpumon.service
 
 %changelog
+* Fri Apr 17 2020 Christian Lindig <christian.lindig@citrix.com> - 0.18.0-1
+- CP-28222: pick environment valriables from xs-opam for CI
+- CP-33121: Remove direct use of stdext
+
 * Fri Aug 23 2019 Edwin Török <edvin.torok@citrix.com> - 0.17.0-2
 - bump packages after xs-opam update
 
