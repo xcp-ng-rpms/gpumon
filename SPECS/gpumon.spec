@@ -1,6 +1,6 @@
 Name:           gpumon
 Version:        0.18.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        RRDD GPU metrics plugin
 Group:          System/Hypervisor
 License:        ISC
@@ -13,7 +13,6 @@ Source1: SOURCES/gpumon/xcp-rrdd-gpumon.service
 Provides: gitsha(https://code.citrite.net/rest/archive/latest/projects/XSU/repos/gpumon/archive?at=v0.18.0&format=tar.gz&prefix=gpumon-0.18.0#/gpumon-0.18.0.tar.gz) = 23164e42d7a466475e67e98046f4be647b6d790d
 
 BuildRoot:      %{_tmppath}/%{name}-%{version}-root
-BuildRequires:  gdk-devel
 BuildRequires:  xs-opam-repo
 BuildRequires:  ocaml-rrdd-plugin-devel
 %{?systemd_requires}
@@ -28,6 +27,7 @@ metrics.
 %autosetup -p1
 
 %build
+DESTDIR=%{buildroot} %{__make} mock
 DESTDIR=%{buildroot} %{__make}
 
 %check
@@ -51,6 +51,9 @@ DESTDIR=%{buildroot} %{__make} install
 %{_unitdir}/xcp-rrdd-gpumon.service
 
 %changelog
+* Wed Jul 15 2020 Benjamin Reis <benjamin.reis@vates.fr> - 0.18.0-2
+- Mock gpumon to build without proprietary element
+
 * Fri Apr 17 2020 Christian Lindig <christian.lindig@citrix.com> - 0.18.0-1
 - CP-28222: pick environment valriables from xs-opam for CI
 - CP-33121: Remove direct use of stdext
