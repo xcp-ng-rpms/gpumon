@@ -1,6 +1,6 @@
 Name:           gpumon
 Version:        0.18.0
-Release:        1.1%{?dist}
+Release:        4.1%{?dist}
 Summary:        RRDD GPU metrics plugin
 Group:          System/Hypervisor
 License:        ISC
@@ -20,6 +20,8 @@ BuildRequires:  ocaml-rrdd-plugin-devel
 %{?systemd_requires}
 BuildRequires:  systemd
 BuildRequires:  xen-dom0-libs-devel
+
+Requires:       libev
 
 %description
 This package contains a plugin registering to the RRD daemon and exposing GPU
@@ -54,6 +56,16 @@ DESTDIR=%{buildroot} %{__make} install
 %{_unitdir}/xcp-rrdd-gpumon.service
 
 %changelog
+* Mon Jan 10 2022 Samuel Verschelde <stormi-xcp@ylix.fr> - 0.18.0-4.1
+- Sync with CH 8.2.1
+- *** Upstream changelog ***
+- * Mon Sep 27 2021 Pau Ruiz Safont <pau.safont@citrix.com> - 0.18.0-4
+- - Bump package for libev dependency
+- * Mon Sep 27 2021 Pau Ruiz Safont <pau.safont@citrix.com> - 0.18.0-3
+- - Bump package after xs-opam update
+- * Tue Jul 13 2021 Edwin Török <edvin.torok@citrix.com> - 0.18.0-2
+- - bump packages after xs-opam update
+
 * Wed Jul 15 2020 Benjamin Reis <benjamin.reis@vates.fr> - 0.18.0-1.1
 - Mock gpumon to build without proprietary element
 - Related to xcp-ng/xcp#381
