@@ -1,6 +1,6 @@
 Name:           gpumon
 Version:        0.18.0
-Release:        1%{?dist}
+Release:        4%{?dist}
 Summary:        RRDD GPU metrics plugin
 Group:          System/Hypervisor
 License:        ISC
@@ -19,6 +19,8 @@ BuildRequires:  ocaml-rrdd-plugin-devel
 %{?systemd_requires}
 BuildRequires:  systemd
 BuildRequires:  xen-dom0-libs-devel
+
+Requires:       libev
 
 %description
 This package contains a plugin registering to the RRD daemon and exposing GPU
@@ -51,6 +53,15 @@ DESTDIR=%{buildroot} %{__make} install
 %{_unitdir}/xcp-rrdd-gpumon.service
 
 %changelog
+* Mon Sep 27 2021 Pau Ruiz Safont <pau.safont@citrix.com> - 0.18.0-4
+- Bump package for libev dependency
+
+* Mon Sep 27 2021 Pau Ruiz Safont <pau.safont@citrix.com> - 0.18.0-3
+- Bump package after xs-opam update
+
+* Tue Jul 13 2021 Edwin Török <edvin.torok@citrix.com> - 0.18.0-2
+- bump packages after xs-opam update
+
 * Fri Apr 17 2020 Christian Lindig <christian.lindig@citrix.com> - 0.18.0-1
 - CP-28222: pick environment valriables from xs-opam for CI
 - CP-33121: Remove direct use of stdext
