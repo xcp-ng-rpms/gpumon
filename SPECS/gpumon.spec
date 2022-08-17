@@ -1,6 +1,6 @@
 Name:           gpumon
 Version:        0.18.0
-Release:        4.1%{?dist}
+Release:        4.2%{?dist}
 Summary:        RRDD GPU metrics plugin
 Group:          System/Hypervisor
 License:        ISC
@@ -56,6 +56,9 @@ DESTDIR=%{buildroot} %{__make} install
 %{_unitdir}/xcp-rrdd-gpumon.service
 
 %changelog
+* Wed Aug 17 2022 Gael Duperrey <gduperrey@vates.fr> - 0.18.0-4.2
+- Rebuild for updated xapi from XS82ECU1011
+
 * Mon Jan 10 2022 Samuel Verschelde <stormi-xcp@ylix.fr> - 0.18.0-4.1
 - Sync with CH 8.2.1
 - *** Upstream changelog ***
