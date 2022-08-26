@@ -1,27 +1,20 @@
+%global package_speccommit 2370dd9a8713cd8186eabbf790d0364692e358e9
+%global package_srccommit v0.20.0
 Name:           gpumon
-Version:        0.18.0
-Release:        4.2%{?dist}
+Version: 0.20.0
+Release: 19.1%{?xsrel}%{?dist}
 Summary:        RRDD GPU metrics plugin
 Group:          System/Hypervisor
 License:        ISC
 URL:            https://github.com/xenserver/gpumon
-
-Source0: https://code.citrite.net/rest/archive/latest/projects/XSU/repos/gpumon/archive?at=v0.18.0&format=tar.gz&prefix=gpumon-0.18.0#/gpumon-0.18.0.tar.gz
-Source1: SOURCES/gpumon/xcp-rrdd-gpumon.service
-
-
-Provides: gitsha(https://code.citrite.net/rest/archive/latest/projects/XSU/repos/gpumon/archive?at=v0.18.0&format=tar.gz&prefix=gpumon-0.18.0#/gpumon-0.18.0.tar.gz) = 23164e42d7a466475e67e98046f4be647b6d790d
-
+Source0: gpumon-0.20.0.tar.gz
+Source1: xcp-rrdd-gpumon.service
 BuildRoot:      %{_tmppath}/%{name}-%{version}-root
 # XCP-ng: Removed because it includes proprietary components
 # BuildRequires:  gdk-devel
 BuildRequires:  xs-opam-repo
-BuildRequires:  ocaml-rrdd-plugin-devel
+BuildRequires:  xcp-rrdd-devel
 %{?systemd_requires}
-BuildRequires:  systemd
-BuildRequires:  xen-dom0-libs-devel
-
-Requires:       libev
 
 %description
 This package contains a plugin registering to the RRD daemon and exposing GPU
@@ -56,22 +49,186 @@ DESTDIR=%{buildroot} %{__make} install
 %{_unitdir}/xcp-rrdd-gpumon.service
 
 %changelog
-* Wed Aug 17 2022 Gael Duperrey <gduperrey@vates.fr> - 0.18.0-4.2
-- Rebuild for updated xapi from XS82ECU1011
+* Fri Aug 26 2022 Samuel Verschelde <stormi-xcp@ylix.fr> - 0.20.0-19.1
+- Sync with CH 8.3 preview (including the changelog)
+- Re-add make mock to build without proprietary dependencies (see xcp-ng/xcp#381)
 
-* Mon Jan 10 2022 Samuel Verschelde <stormi-xcp@ylix.fr> - 0.18.0-4.1
-- Sync with CH 8.2.1
-- *** Upstream changelog ***
-- * Mon Sep 27 2021 Pau Ruiz Safont <pau.safont@citrix.com> - 0.18.0-4
-- - Bump package for libev dependency
-- * Mon Sep 27 2021 Pau Ruiz Safont <pau.safont@citrix.com> - 0.18.0-3
-- - Bump package after xs-opam update
-- * Tue Jul 13 2021 Edwin Török <edvin.torok@citrix.com> - 0.18.0-2
-- - bump packages after xs-opam update
+* Wed Jun 08 2022 Rob Hoes <rob.hoes@citrix.com> - 0.20.0-19
+- Bump release and rebuild
 
-* Wed Jul 15 2020 Benjamin Reis <benjamin.reis@vates.fr> - 0.18.0-1.1
-- Mock gpumon to build without proprietary element
-- Related to xcp-ng/xcp#381
+* Wed May 18 2022 Rob Hoes <rob.hoes@citrix.com> - 0.20.0-18
+- Bump release and rebuild
+
+* Wed Apr 27 2022 Rob Hoes <rob.hoes@citrix.com> - 0.20.0-17
+- Bump release and rebuild
+
+* Tue Apr 19 2022 Rob Hoes <rob.hoes@citrix.com> - 0.20.0-16
+- Bump release and rebuild
+
+* Wed Apr 13 2022 Rob Hoes <rob.hoes@citrix.com> - 0.20.0-15
+- Bump release and rebuild
+
+* Fri Apr 01 2022 Rob Hoes <rob.hoes@citrix.com> - 0.20.0-14
+- Bump release and rebuild
+
+* Mon Mar 28 2022 Rob Hoes <rob.hoes@citrix.com> - 0.20.0-13
+- Bump release and rebuild
+
+* Tue Mar 15 2022 Rob Hoes <rob.hoes@citrix.com> - 0.20.0-12
+- Bump release and rebuild
+
+* Thu Mar 03 2022 Rob Hoes <rob.hoes@citrix.com> - 0.20.0-11
+- Bump release and rebuild
+
+* Mon Feb 28 2022 Rob Hoes <rob.hoes@citrix.com> - 0.20.0-10
+- Bump release and rebuild
+
+* Mon Feb 21 2022 Rob Hoes <rob.hoes@citrix.com> - 0.20.0-9
+- Bump release and rebuild
+
+* Tue Feb 15 2022 Rob Hoes <rob.hoes@citrix.com> - 0.20.0-8
+- Bump release and rebuild with OCaml 4.13.1 compiler.
+
+* Mon Feb 14 2022 Rob Hoes <rob.hoes@citrix.com> - 0.20.0-7
+- Bump release and rebuild
+
+* Wed Feb 09 2022 Rob Hoes <rob.hoes@citrix.com> - 0.20.0-6
+- Bump release and rebuild
+
+* Thu Feb 03 2022 Rob Hoes <rob.hoes@citrix.com> - 0.20.0-5
+- Bump release and rebuild
+
+* Wed Jan 26 2022 Rob Hoes <rob.hoes@citrix.com> - 0.20.0-4
+- Bump release and rebuild
+
+* Tue Jan 11 2022 Rob Hoes <rob.hoes@citrix.com> - 0.20.0-3
+- Bump release and rebuild
+
+* Fri Dec 17 2021 Rob Hoes <rob.hoes@citrix.com> - 0.20.0-2
+- Bump release and rebuild
+
+* Fri Dec 03 2021 Rob Hoes <rob.hoes@citrix.com> - 0.20.0-1
+- maintenance: run ocamlformat
+- CP-33121: Drop stdext_std usage
+- maintenance: use github actions for CI
+- maintenance: stop using travis for CI
+
+* Thu Nov 25 2021 Rob Hoes <rob.hoes@citrix.com> - 0.19.0-42
+- Bump release and rebuild
+
+* Thu Nov 25 2021 Rob Hoes <rob.hoes@citrix.com> - 0.19.0-41
+- Bump release and rebuild
+
+* Wed Nov 24 2021 Edwin Török <edvin.torok@citrix.com> - 0.19.0-40
+- Bump release and rebuild
+
+* Wed Nov 24 2021 Edwin Török <edvin.torok@citrix.com> - 0.19.0-39
+- Bump release and rebuild
+
+* Fri Nov 19 2021 Rob Hoes <rob.hoes@citrix.com> - 0.19.0-38
+- Bump release and rebuild
+
+* Mon Nov 08 2021 Christian Lindig <christian.lindig@citrix.com> - 0.19.0-37
+- Bump release and rebuild
+
+* Mon Oct 11 2021 Rob Hoes <rob.hoes@citrix.com> - 0.19.0-36
+- Bump release and rebuild
+
+* Fri Oct 01 2021 Rob Hoes <rob.hoes@citrix.com> - 0.19.0-35
+- Bump release and rebuild
+
+* Wed Sep 22 2021 Rob Hoes <rob.hoes@citrix.com> - 0.19.0-34
+- Bump release and rebuild
+
+* Thu Sep 16 2021 Rob Hoes <rob.hoes@citrix.com> - 0.19.0-33
+- Bump release and rebuild
+
+* Fri Sep 03 2021 Rob Hoes <rob.hoes@citrix.com> - 0.19.0-32
+- Bump release and rebuild
+
+* Wed Sep 01 2021 Rob Hoes <rob.hoes@citrix.com> - 0.19.0-31
+- Bump release and rebuild
+
+* Thu Aug 26 2021 Christian Lindig <christian.lindig@citrix.com> - 0.19.0-30
+- Bump release and rebuild
+
+* Wed Aug 25 2021 Christian Lindig <christian.lindig@citrix.com> - 0.19.0-29
+- Bump release and rebuild
+
+* Wed Aug 25 2021 Christian Lindig <christian.lindig@citrix.com> - 0.19.0-28
+- Bump release and rebuild
+
+* Thu Jul 29 2021 Rob Hoes <rob.hoes@citrix.com> - 0.19.0-27
+- Bump release and rebuild
+
+* Mon Jul 19 2021 Rob Hoes <rob.hoes@citrix.com> - 0.19.0-26
+- Bump release and rebuild
+
+* Thu Jul 08 2021 Christian Lindig <christian.lindig@citrix.com> - 0.19.0-25
+- Bump release and rebuild
+
+* Thu May 20 2021 Rob Hoes <rob.hoes@citrix.com> - 0.19.0-21
+- Bump release and rebuild
+
+* Mon May 17 2021 Rob Hoes <rob.hoes@citrix.com> - 0.19.0-20
+- Bump release and rebuild
+
+* Mon May 10 2021 Rob Hoes <rob.hoes@citrix.com> - 0.19.0-19
+- Bump release and rebuild
+
+* Fri May 07 2021 Rob Hoes <rob.hoes@citrix.com> - 0.19.0-18
+- Bump release and rebuild
+
+* Thu May 06 2021 Rob Hoes <rob.hoes@citrix.com> - 0.19.0-17
+- Bump release and rebuild
+
+* Tue Apr 27 2021 Rob Hoes <rob.hoes@citrix.com> - 0.19.0-16
+- Bump release and rebuild
+
+* Thu Apr 22 2021 Rob Hoes <rob.hoes@citrix.com> - 0.19.0-15
+- Bump release and rebuild
+
+* Wed Apr 14 2021 Rob Hoes <rob.hoes@citrix.com> - 0.19.0-14
+- Bump release and rebuild
+
+* Wed Apr 14 2021 Rob Hoes <rob.hoes@citrix.com> - 0.19.0-13
+- Bump release and rebuild
+
+* Thu Apr 01 2021 Rob Hoes <rob.hoes@citrix.com> - 0.19.0-12
+- Bump release and rebuild
+
+* Fri Mar 26 2021 Rob Hoes <rob.hoes@citrix.com> - 0.19.0-11
+- Bump release and rebuild
+
+* Mon Mar 22 2021 Andrew Cooper <andrew.cooper3@citrix.com> - 0.19.0-10
+- Drop incorrect BuildRequires
+
+* Mon Mar 08 2021 Rob Hoes <rob.hoes@citrix.com> - 0.19.0-9
+- Bump release and rebuild
+
+* Fri Mar 05 2021 Rob Hoes <rob.hoes@citrix.com> - 0.19.0-8
+- Bump release and rebuild
+
+* Tue Mar 02 2021 Rob Hoes <rob.hoes@citrix.com> - 0.19.0-7
+- Bump release and rebuild
+
+* Tue Feb 23 2021 Rob Hoes <rob.hoes@citrix.com> - 0.19.0-6
+- Bump release and rebuild
+
+* Tue Feb 16 2021 Rob Hoes <rob.hoes@citrix.com> - 0.19.0-5
+- Bump release and rebuild
+
+* Fri Feb 05 2021 Rob Hoes <rob.hoes@citrix.com> - 0.19.0-4
+- Bump release and rebuild
+
+* Thu Jan 28 2021 Rob Hoes <rob.hoes@citrix.com> - 0.19.0-3
+- Bump release and rebuild
+
+* Wed Jan 06 2021 Rob Hoes <rob.hoes@citrix.com> - 0.19.0-2
+- Bump release and rebuild
+
+* Tue Sep 22 2020 Christian Lindig <christian.lindig@citrix.com> - 0.19.0-1
+- maintenance: move to Dune 2.0, ocamlformat
 
 * Fri Apr 17 2020 Christian Lindig <christian.lindig@citrix.com> - 0.18.0-1
 - CP-28222: pick environment valriables from xs-opam for CI
