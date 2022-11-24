@@ -1,0 +1,349 @@
+From af3166efc2d39542620933b7ba327efae7838a03 Mon Sep 17 00:00:00 2001
+From: Christian Lindig <christian.lindig@citrix.com>
+Date: Wed, 29 Jan 2020 14:51:22 +0000
+Subject: [PATCH 1/2] CP-33044 add Make target "unmock"
+
+Add target to reverse "make mock" - purely for convenience.
+
+Signed-off-by: Christian Lindig <christian.lindig@citrix.com>
+---
+ Makefile | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/Makefile b/Makefile
+index ce92fa4..2cb4e35 100644
+--- a/Makefile
++++ b/Makefile
+@@ -33,3 +33,5 @@ mock:
+ 	cp mocks/mock.ml lib/nvml.ml
+ 	cp mocks/mock.c  stubs/nvml_stubs.c
+
++unmock:
++	git checkout -- lib/nvml.ml stubs/nvml_stubs.c
+
+From e51e69c4de45061fd498eea0d43f57233215c44f Mon Sep 17 00:00:00 2001
+From: Christian Lindig <christian.lindig@citrix.com>
+Date: Wed, 29 Jan 2020 14:51:22 +0000
+Subject: [PATCH 2/2] CP-33044 Introduce NVML.{attach,detach}
+
+The NVML library is required to query Nvidia GPUs at runtime. This
+library is loaded dynamically using dlopen(2). Add the capability to
+attach and detach this library using the xapi-idl IPC mechanism. This is
+experimental.
+
+Signed-off-by: Christian Lindig <christian.lindig@citrix.com>
+---
+ gpumon/gpumon.ml        | 112 ++++++++++++++++++++--------------------
+ gpumon/gpumon_server.ml |  20 ++++++-
+ lib/dune                |   2 +-
+ lib/nvml.ml             |  59 +++++++++++++++++++++
+ mocks/mock.ml           |  10 ++++
+ 5 files changed, 144 insertions(+), 59 deletions(-)
+
+diff --git a/gpumon/gpumon.ml b/gpumon/gpumon.ml
+index fbd995a..6c43395 100644
+--- a/gpumon/gpumon.ml
++++ b/gpumon/gpumon.ml
+@@ -6,6 +6,42 @@ module Process = Process (struct let name = plugin_name end)
+
+ let nvidia_vendor_id = 0x10del
+
++let vgpu_config_dir = "/usr/share/nvidia/vgpu"
++
++(* acquire NVML interface but give up after timeout *)
++let acquire_nvml_interface ?(timeout = 30.0) () =
++  let rec loop delay waited =
++    match Nvml.NVML.get () with
++    | Some _ as interface ->
++        interface
++    | None when waited > timeout ->
++        Process.D.info "Could not open NVML interface - giving up" ;
++        None
++    | None ->
++        Process.D.info "Could not open NVML interface - retry in %4.1f" delay ;
++        Thread.delay delay ;
++        loop (delay *. 1.2) (waited +. delay)
++  in
++  match Sys.file_exists vgpu_config_dir with
++  | true ->
++      loop 2.0 0.0
++  | false ->
++      Process.D.info "%s not found - assuming NVML library unavailable"
++        vgpu_config_dir ;
++      None
++
++(* acquire_nvml_interface but keep looping. Only call this in a thread
++   that does not block the main interaction like the RPC server *)
++let rec always_acquire_nvml_interface () =
++  let delay = 60.0 in
++  match acquire_nvml_interface () with
++  | Some interface ->
++      interface
++  | None ->
++      Process.D.error "Failed to open NVML interface - sleeping %f" delay ;
++      Thread.delay delay ;
++      always_acquire_nvml_interface ()
++
+ let default_config : (int32 * Gpumon_config.config) list =
+   let open Gpumon_config in
+   [
+@@ -272,35 +308,6 @@ let generate_all_gpu_dss interface gpus =
+     )
+     [] gpus
+
+-(** Open and initialise an interface to the NVML library. Close the library if
+- *  initialisation fails. *)
+-let open_nvml_interface () =
+-  let interface = Nvml.library_open () in
+-  try Nvml.init interface ; interface
+-  with e ->
+-    Nvml.library_close interface ;
+-    raise e
+-
+-let open_nvml_interface_noexn () =
+-  try Some (open_nvml_interface ())
+-  with e ->
+-    ( match e with
+-    | Nvml.Library_not_loaded msg ->
+-        Process.D.error "NVML interface not loaded: %s" msg
+-    | Nvml.Symbol_not_loaded msg ->
+-        Process.D.error "NVML missing expected symbol: %s" msg
+-    | e ->
+-        Process.D.error "Caught unexpected error initialising NVML: %s"
+-          (Printexc.to_string e)
+-    ) ;
+-    None
+-
+-(** Shutdown and close an interface to the NVML library. *)
+-let close_nvml_interface interface =
+-  Xapi_stdext_pervasives.Pervasiveext.finally
+-    (fun () -> Nvml.shutdown interface)
+-    (fun () -> Nvml.library_close interface)
+-
+ let start server =
+   let (_ : Thread.t) =
+     Thread.create (fun () -> Xcp_service.serve_forever server) ()
+@@ -325,28 +332,25 @@ module Make (Impl : Gpumon_server.IMPLEMENTATION) = struct
+     Server.Nvidia.get_pgpu_vgpu_compatibility
+       Impl.Nvidia.get_pgpu_vgpu_compatibility ;
+     Server.Nvidia.get_pgpu_vm_compatibility
+-      Impl.Nvidia.get_pgpu_vm_compatibility
++      Impl.Nvidia.get_pgpu_vm_compatibility ;
++    Server.Nvidia.nvml_attach Impl.Nvidia.attach ;
++    Server.Nvidia.nvml_detach Impl.Nvidia.detach ;
++    Server.Nvidia.nvml_is_attached Impl.Nvidia.is_attached
+ end
+
+ let () =
+   Process.initialise () ;
+-  let maybe_interface = open_nvml_interface_noexn () in
++  Nvml.NVML.attach () ;
+   (* Define the new signal handler *)
+   let stop_handler signal =
+-    let _ =
+-      match maybe_interface with
+-      | Some interface ->
+-          close_nvml_interface interface
+-      | None ->
+-          ()
+-    in
++    Nvml.NVML.detach () ;
+     Process.D.info "Caught signal in %s" __LOC__ ;
+     Process.D.info "Received signal %d: deregistering plugin %s..." signal
+       plugin_name ;
+     exit 0
+   in
+   let module Gpumon_server = Gpumon_server.Make (struct
+-    let interface = maybe_interface
++    let interface () = acquire_nvml_interface ()
+   end) in
+   (* create daemon module to bind server call declarations to implementations *)
+   let module Daemon = Make (Gpumon_server) in
+@@ -362,27 +366,23 @@ let () =
+     start server
+   in
+   (* gpumon rrdd interface *)
+-  let rec rrdd_loop interface =
++  let rec rrdd_loop () =
+     try
+-      let gpus = get_gpus interface in
+-      (* Share one page per GPU - this is plenty for the six datasources per GPU
+-         			 * which we currently report. *)
+-      let shared_page_count = List.length gpus in
++      let interface = always_acquire_nvml_interface () in
++      let shared_page_count = get_gpus interface |> List.length in
++      (* Share one page per GPU - this is plenty for the six
++         datasources per GPU which we currently report. *)
++      let dss_f () =
++        let interface = always_acquire_nvml_interface () in
++        let gpus = get_gpus interface in
++        generate_all_gpu_dss interface gpus
++      in
+       Process.main_loop ~neg_shift:0.5
+         ~target:(Reporter.Local shared_page_count) ~protocol:Rrd_interface.V2
+-        ~dss_f:(fun () -> generate_all_gpu_dss interface gpus
+-      )
++        ~dss_f
+     with e ->
+       Process.D.error "Unexpected exception: %s" (Printexc.to_string e) ;
+       Thread.delay 5.0 ;
+-      rrdd_loop interface
++      rrdd_loop ()
+   in
+-  match maybe_interface with
+-  | Some interface ->
+-      Process.D.info "Opened NVML interface" ;
+-      rrdd_loop interface
+-  | None ->
+-      Process.D.info "Could not open NVML interface - sleeping forever" ;
+-      while true do
+-        Thread.delay 3600.0
+-      done
++  rrdd_loop ()
+diff --git a/gpumon/gpumon_server.ml b/gpumon/gpumon_server.ml
+index 8f97ede..d1dfe67 100644
+--- a/gpumon/gpumon_server.ml
++++ b/gpumon/gpumon_server.ml
+@@ -37,11 +37,17 @@ module type IMPLEMENTATION = sig
+       -> nvidia_pgpu_metadata
+       -> nvidia_vgpu_metadata list
+       -> compatibility
++
++    val attach : debug_info -> unit
++
++    val detach : debug_info -> unit
++
++    val is_attached : debug_info -> bool
+   end
+ end
+
+ module type Interface = sig
+-  val interface : Nvml.interface option
++  val interface : unit -> Nvml.interface option
+ end
+
+ module Make (I : Interface) : IMPLEMENTATION = struct
+@@ -54,7 +60,7 @@ module Make (I : Interface) : IMPLEMENTATION = struct
+     let host_driver_supporting_migration = 390
+
+     let get_interface_exn () =
+-      match I.interface with
++      match I.interface () with
+       | Some interface ->
+           interface
+       | None ->
+@@ -174,5 +180,15 @@ module Make (I : Interface) : IMPLEMENTATION = struct
+     let get_pgpu_vm_compatibility dbg pgpu_address domid pgpu_metadata =
+       get_pgpu_vgpu_compatibility dbg pgpu_metadata
+         (get_vgpu_metadata dbg domid pgpu_address "")
++
++    let fail exn =
++      raise
++        Gpumon_interface.(Gpumon_error (NvmlFailure (Printexc.to_string exn)))
++
++    let attach _dbg = try Nvml.NVML.attach () with exn -> fail exn
++
++    let detach _dbg = try Nvml.NVML.detach () with exn -> fail exn
++
++    let is_attached _dbg = try Nvml.NVML.is_attached () with exn -> fail exn
+   end
+ end
+diff --git a/lib/dune b/lib/dune
+index 9b9d3ae..cfeac5a 100644
+--- a/lib/dune
++++ b/lib/dune
+@@ -1,4 +1,4 @@
+ (library
+  (name gpumon_lib)
+  (wrapped false)
+- (libraries nvml_stubs rresult xapi-stdext-unix))
++ (libraries nvml_stubs xapi-idl rresult xapi-stdext-unix))
+diff --git a/lib/nvml.ml b/lib/nvml.ml
+index 687af4d..e7e7b7c 100644
+--- a/lib/nvml.ml
++++ b/lib/nvml.ml
+@@ -1,3 +1,5 @@
++module D = Debug.Make (struct let name = __MODULE__ end)
++
+ exception Library_not_loaded of string
+
+ exception Symbol_not_loaded of string
+@@ -135,3 +137,60 @@ let get_vgpu_for_uuid iface vgpu_uuid vgpus =
+           None
+     )
+     vgpus
++
++module NVML : sig
++  val attach : unit -> unit
++
++  val detach : unit -> unit
++
++  val is_attached : unit -> bool
++
++  val get : unit -> interface option
++end = struct
++  let interface = ref (None : interface option)
++
++  let mx = Mutex.create ()
++
++  let finally = Xapi_stdext_pervasives.Pervasiveext.finally
++
++  let with_mutex mx f =
++    Mutex.lock mx ;
++    finally f (fun () -> Mutex.unlock mx)
++
++  let open_nvml_interface () =
++    let interface = library_open () in
++    try init interface ; interface with e -> library_close interface ; raise e
++
++  let get () = !interface
++
++  let attach () =
++    with_mutex mx @@ fun () ->
++    match !interface with
++    | Some _ ->
++        D.warn "Nvml library attach: library already attached"
++    | None -> (
++      match open_nvml_interface () with
++      | i ->
++          interface := Some i ;
++          D.info "Nvml library attach: success"
++      | exception e ->
++          interface := None ;
++          D.warn "Nvml library attach: failure: %s" (Printexc.to_string e)
++    )
++
++  let detach () =
++    with_mutex mx @@ fun () ->
++    match !interface with
++    | None ->
++        D.warn "Nvml library detach: not library attached"
++    | Some intf ->
++        D.info "Nvml library detach: detaching" ;
++        finally
++          (fun () -> shutdown intf)
++          (fun () ->
++            interface := None ;
++            library_close intf
++          )
++
++  let is_attached () = match !interface with None -> false | Some _ -> true
++end
+diff --git a/mocks/mock.ml b/mocks/mock.ml
+index 0a96005..922de8b 100644
+--- a/mocks/mock.ml
++++ b/mocks/mock.ml
+@@ -100,3 +100,13 @@ let vgpu_compat_get_pgpu_compat_limit _vgpu_compatibility_t = []
+ let get_vgpus_for_vm _iface _device _vm_domid = []
+
+ let get_vgpu_for_uuid _iface _vgpu_uuid _vgpus = []
++
++module NVML = struct
++  let attach () = ()
++
++  let detach () = ()
++
++  let is_attached () = true
++
++  let get () : interface option = None
++end

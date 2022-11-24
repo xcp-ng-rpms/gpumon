@@ -9,6 +9,9 @@ License:        ISC
 URL:            https://github.com/xenserver/gpumon
 Source0: gpumon-0.21.0.tar.gz
 Source1: xcp-rrdd-gpumon.service
+
+Patch1000: toto.patch
+
 BuildRoot:      %{_tmppath}/%{name}-%{version}-root
 # XCP-ng: Removed because it includes proprietary components
 # BuildRequires:  gdk-devel
@@ -25,7 +28,7 @@ metrics.
 
 %build
 # XCP-ng: Add a `make mock` to avoid real build requiring proprietary element
-DESTDIR=%{buildroot} %{__make} mock
+# DESTDIR=%{buildroot} %{__make} mock
 DESTDIR=%{buildroot} %{__make}
 
 %check
