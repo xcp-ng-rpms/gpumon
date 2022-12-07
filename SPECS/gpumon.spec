@@ -1,13 +1,13 @@
-%global package_speccommit 2370dd9a8713cd8186eabbf790d0364692e358e9
-%global package_srccommit v0.20.0
+%global package_speccommit 180062294e33f8dc5927a1c0e080cf9af0f494f1
+%global package_srccommit v0.21.0
 Name:           gpumon
-Version: 0.20.0
-Release: 19.1%{?xsrel}%{?dist}
+Version: 0.21.0
+Release: 1.1%{?xsrel}%{?dist}
 Summary:        RRDD GPU metrics plugin
 Group:          System/Hypervisor
 License:        ISC
 URL:            https://github.com/xenserver/gpumon
-Source0: gpumon-0.20.0.tar.gz
+Source0: gpumon-0.21.0.tar.gz
 Source1: xcp-rrdd-gpumon.service
 BuildRoot:      %{_tmppath}/%{name}-%{version}-root
 # XCP-ng: Removed because it includes proprietary components
@@ -49,6 +49,12 @@ DESTDIR=%{buildroot} %{__make} install
 %{_unitdir}/xcp-rrdd-gpumon.service
 
 %changelog
+* Wed Dec 07 2022 Samuel Verschelde <stormi-xcp@ylix.fr> - 0.21.0-1.1
+- Update from XS 8.3 pre-release updates
+- *** Upstream changelog ***
+- * Tue Nov 01 2022 Rob Hoes <rob.hoes@citrix.com> - 0.21.0-1
+- - CP-37861 - don't include nvml_grid.h
+
 * Fri Aug 26 2022 Samuel Verschelde <stormi-xcp@ylix.fr> - 0.20.0-19.1
 - Sync with CH 8.3 preview (including the changelog)
 - Re-add make mock to build without proprietary dependencies (see xcp-ng/xcp#381)
