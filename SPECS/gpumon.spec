@@ -1,13 +1,13 @@
-%global package_speccommit 180062294e33f8dc5927a1c0e080cf9af0f494f1
-%global package_srccommit v0.21.0
+%global package_speccommit 82494ef797dd58c80c970888a36dc904fc0ca04e
+%global package_srccommit v0.24.0
 Name:           gpumon
-Version: 0.21.0
-Release: 1%{?xsrel}%{?dist}
+Version: 0.24.0
+Release: 8%{?xsrel}%{?dist}
 Summary:        RRDD GPU metrics plugin
 Group:          System/Hypervisor
 License:        ISC
 URL:            https://github.com/xenserver/gpumon
-Source0: gpumon-0.21.0.tar.gz
+Source0: gpumon-0.24.0.tar.gz
 Source1: xcp-rrdd-gpumon.service
 BuildRoot:      %{_tmppath}/%{name}-%{version}-root
 BuildRequires:  gdk-devel
@@ -46,6 +46,42 @@ DESTDIR=%{buildroot} %{__make} install
 %{_unitdir}/xcp-rrdd-gpumon.service
 
 %changelog
+* Wed Feb 08 2023 Pau Ruiz Safont <pau.ruizsafont@cloud.com> - 0.24.0-8
+- Bump release and rebuild
+
+* Thu Feb 02 2023 Pau Ruiz Safont <pau.ruizsafont@cloud.com> - 0.24.0-7
+- Bump release and rebuild
+
+* Mon Jan 30 2023 Pau Ruiz Safont <pau.ruizsafont@cloud.com> - 0.24.0-6
+- Bump release and rebuild
+
+* Mon Jan 30 2023 Pau Ruiz Safont <pau.ruizsafont@cloud.com> - 0.24.0-5
+- Bump release and rebuild
+
+* Fri Jan 27 2023 Pau Ruiz Safont <pau.ruizsafont@cloud.com> - 0.24.0-4
+- Bump release and rebuild
+
+* Thu Jan 26 2023 Pau Ruiz Safont <pau.ruizsafont@cloud.com> - 0.24.0-3
+- Bump release and rebuild
+
+* Mon Jan 23 2023 Pau Ruiz Safont <pau.ruizsafont@cloud.com> - 0.24.0-2
+- Bump release and rebuild
+
+* Thu Jan 19 2023 Pau Ruiz Safont <pau.ruizsafont@cloud.com> - 0.24.0-1
+- CP-33044 Introduce NVML.{attach,detach}
+
+* Mon Dec 12 2022 Rob Hoes <rob.hoes@citrix.com> - 0.23.0-2
+- Bump release and rebuild
+
+* Thu Dec 08 2022 Rob Hoes <rob.hoes@citrix.com> - 0.23.0-1
+- CP-33044 add Make target "unmock"
+- CP-33044 Provide mock impl for NVML attach/detach
+- gpumon: add a unit test to check that gpumon doesn't fail on startup due to unbound API calls
+
+* Fri Nov 18 2022 Rob Hoes <rob.hoes@citrix.com> - 0.22.0-1
+- CA-371894 fix bindings that use dynamic allocation for results
+- CA-371894 fix some const warnings
+
 * Tue Nov 01 2022 Rob Hoes <rob.hoes@citrix.com> - 0.21.0-1
 - CP-37861 - don't include nvml_grid.h
 

@@ -7,9 +7,9 @@ Wants=syslog.target
 [Service]
 Environment=OCAMLRUNPARAM=b
 ExecStart=/opt/xensource/libexec/xcp-rrdd-plugins/xcp-rrdd-gpumon
-SuccessExitStatus=0 2
-StandardOutput=null
-StandardError=null
+SuccessExitStatus=0
+# StandardOutput=null
+# StandardError=null
 # restart but fail if more than 5 failures in 30s
 Restart=on-failure
 StartLimitBurst=5
