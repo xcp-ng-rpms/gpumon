@@ -1,6 +1,6 @@
 Name:           gpumon
 Version:        0.18.0
-Release:        4.2%{?dist}
+Release:        4.3%{?dist}
 Summary:        RRDD GPU metrics plugin
 Group:          System/Hypervisor
 License:        ISC
@@ -56,6 +56,10 @@ DESTDIR=%{buildroot} %{__make} install
 %{_unitdir}/xcp-rrdd-gpumon.service
 
 %changelog
+* Thu Apr 27 2023 Samuel Verschelde <stormi-xcp@ylix.fr> - 0.18.0-4.3
+- Rebuild for ocaml-rrdd-plugin-1.9.1-2.2.xcpng8.2
+- Fixes "not enough memory" messages in xcp-rrdd-plugins.log
+
 * Wed Aug 17 2022 Gael Duperrey <gduperrey@vates.fr> - 0.18.0-4.2
 - Rebuild for updated xapi from XS82ECU1011
 
