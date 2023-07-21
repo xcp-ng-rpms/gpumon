@@ -2,7 +2,7 @@
 %global package_srccommit v0.24.0
 Name:           gpumon
 Version: 0.24.0
-Release: 8.1%{?xsrel}%{?dist}
+Release: 8.2%{?xsrel}%{?dist}
 Summary:        RRDD GPU metrics plugin
 Group:          System/Hypervisor
 License:        ISC
@@ -49,6 +49,9 @@ DESTDIR=%{buildroot} %{__make} install
 %{_unitdir}/xcp-rrdd-gpumon.service
 
 %changelog
+* Fri Jul 21 2023 Benjamin Reis <benjamin.reis@vates.fr> - 0.24.0-8.2
+- Rebuild for xs-opam-repo-6.66.0-1.2.xcpng8.3 and xapi-23.3.0-1.6.xcpng8.3
+
 * Tue Feb 21 2023 Samuel Verschelde <stormi-xcp@ylix.fr> - 0.24.0-8.1
 - Update to 0.24.0-8
 - *** Upstream changelog (excluding simple rebuilds) ***
