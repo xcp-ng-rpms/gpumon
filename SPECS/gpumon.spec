@@ -1,17 +1,14 @@
+%global package_speccommit 30b51ac0a4a3b90f195858799abfa92038857456
+%global package_srccommit v0.18.0
 Name:           gpumon
-Version:        0.18.0
-Release:        4.3%{?dist}
+Version: 0.18.0
+Release: 10.1%{?xsrel}%{?dist}
 Summary:        RRDD GPU metrics plugin
 Group:          System/Hypervisor
 License:        ISC
 URL:            https://github.com/xenserver/gpumon
-
-Source0: https://code.citrite.net/rest/archive/latest/projects/XSU/repos/gpumon/archive?at=v0.18.0&format=tar.gz&prefix=gpumon-0.18.0#/gpumon-0.18.0.tar.gz
-Source1: SOURCES/gpumon/xcp-rrdd-gpumon.service
-
-
-Provides: gitsha(https://code.citrite.net/rest/archive/latest/projects/XSU/repos/gpumon/archive?at=v0.18.0&format=tar.gz&prefix=gpumon-0.18.0#/gpumon-0.18.0.tar.gz) = 23164e42d7a466475e67e98046f4be647b6d790d
-
+Source0: gpumon-0.18.0.tar.gz
+Source1: xcp-rrdd-gpumon.service
 BuildRoot:      %{_tmppath}/%{name}-%{version}-root
 # XCP-ng: Removed because it includes proprietary components
 # BuildRequires:  gdk-devel
@@ -19,7 +16,7 @@ BuildRequires:  xs-opam-repo
 BuildRequires:  ocaml-rrdd-plugin-devel
 %{?systemd_requires}
 BuildRequires:  systemd
-BuildRequires:  xen-dom0-libs-devel
+BuildRequires:  xen-ocaml-devel
 
 Requires:       libev
 
@@ -56,6 +53,16 @@ DESTDIR=%{buildroot} %{__make} install
 %{_unitdir}/xcp-rrdd-gpumon.service
 
 %changelog
+* Wed Aug 09 2023 Gael Duperrey <gduperrey@vates.fr> - 0.18.0-10.1
+- Sync with hotfix XS82ECU1040
+- *** Upstream changelog ***
+- * Mon Jun 19 2023 Christian Lindig <christian.lindig@citrix.com> - 0.18.0-9
+- - Bump release and rebuild
+- * Thu Jun 08 2023 Christian Lindig <christian.lindig@citrix.com> - 0.18.0-8
+- - Bump release and rebuild
+- * Fri May 12 2023 Christian Lindig <christian.lindig@citrix.com> - 0.18.0-7
+- - Bump release and rebuild
+
 * Thu Apr 27 2023 Samuel Verschelde <stormi-xcp@ylix.fr> - 0.18.0-4.3
 - Rebuild for ocaml-rrdd-plugin-1.9.1-2.2.xcpng8.2
 - Fixes "not enough memory" messages in xcp-rrdd-plugins.log
