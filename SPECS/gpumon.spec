@@ -1,24 +1,21 @@
+%global package_speccommit 30b51ac0a4a3b90f195858799abfa92038857456
+%global package_srccommit v0.18.0
 Name:           gpumon
-Version:        0.18.0
-Release:        4%{?dist}
+Version: 0.18.0
+Release: 10%{?xsrel}%{?dist}
 Summary:        RRDD GPU metrics plugin
 Group:          System/Hypervisor
 License:        ISC
 URL:            https://github.com/xenserver/gpumon
-
-Source0: https://code.citrite.net/rest/archive/latest/projects/XSU/repos/gpumon/archive?at=v0.18.0&format=tar.gz&prefix=gpumon-0.18.0#/gpumon-0.18.0.tar.gz
-Source1: SOURCES/gpumon/xcp-rrdd-gpumon.service
-
-
-Provides: gitsha(https://code.citrite.net/rest/archive/latest/projects/XSU/repos/gpumon/archive?at=v0.18.0&format=tar.gz&prefix=gpumon-0.18.0#/gpumon-0.18.0.tar.gz) = 23164e42d7a466475e67e98046f4be647b6d790d
-
+Source0: gpumon-0.18.0.tar.gz
+Source1: xcp-rrdd-gpumon.service
 BuildRoot:      %{_tmppath}/%{name}-%{version}-root
 BuildRequires:  gdk-devel
 BuildRequires:  xs-opam-repo
 BuildRequires:  ocaml-rrdd-plugin-devel
 %{?systemd_requires}
 BuildRequires:  systemd
-BuildRequires:  xen-dom0-libs-devel
+BuildRequires:  xen-ocaml-devel
 
 Requires:       libev
 
@@ -53,6 +50,24 @@ DESTDIR=%{buildroot} %{__make} install
 %{_unitdir}/xcp-rrdd-gpumon.service
 
 %changelog
+* Thu Jul 20 2023 Rob Hoes <rob.hoes@citrix.com> - 0.18.0-10
+- Bump release and rebuild
+
+* Mon Jun 19 2023 Christian Lindig <christian.lindig@citrix.com> - 0.18.0-9
+- Bump release and rebuild
+
+* Thu Jun 08 2023 Christian Lindig <christian.lindig@citrix.com> - 0.18.0-8
+- Bump release and rebuild
+
+* Fri May 12 2023 Christian Lindig <christian.lindig@citrix.com> - 0.18.0-7
+- Bump release and rebuild
+
+* Wed Apr 19 2023 Christian Lindig <christian.lindig@citrix.com> - 0.18.0-6
+- XSI 1404 increase StartLimitBurst to 25, accept only 0 RC for scucess
+
+* Tue Feb 28 2023 Pau Ruiz Safont <pau.ruizsafont@cloud.com> - 0.18.0-5
+- Fix xen BuildReqs
+
 * Mon Sep 27 2021 Pau Ruiz Safont <pau.safont@citrix.com> - 0.18.0-4
 - Bump package for libev dependency
 
