@@ -62,6 +62,10 @@ DESTDIR=%{buildroot} %{__make} install
 - - Bump release and rebuild
 - * Fri May 12 2023 Christian Lindig <christian.lindig@citrix.com> - 0.18.0-7
 - - Bump release and rebuild
+- * Wed Apr 19 2023 Christian Lindig <christian.lindig@citrix.com> - 0.18.0-6
+- - XSI 1404 increase StartLimitBurst to 25, accept only 0 RC for scucess
+- * Tue Feb 28 2023 Pau Ruiz Safont <pau.ruizsafont@cloud.com> - 0.18.0-5
+- - Fix xen BuildReqs
 
 * Thu Apr 27 2023 Samuel Verschelde <stormi-xcp@ylix.fr> - 0.18.0-4.3
 - Rebuild for ocaml-rrdd-plugin-1.9.1-2.2.xcpng8.2
