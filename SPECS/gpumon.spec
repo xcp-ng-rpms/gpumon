@@ -1,8 +1,8 @@
-%global package_speccommit 82494ef797dd58c80c970888a36dc904fc0ca04e
+%global package_speccommit 79688b8bcc7967ee814623f9886dce487bfd415b
 %global package_srccommit v0.24.0
 Name:           gpumon
 Version: 0.24.0
-Release: 8.2%{?xsrel}%{?dist}
+Release: 29.1%{?xsrel}%{?dist}
 Summary:        RRDD GPU metrics plugin
 Group:          System/Hypervisor
 License:        ISC
@@ -49,6 +49,16 @@ DESTDIR=%{buildroot} %{__make} install
 %{_unitdir}/xcp-rrdd-gpumon.service
 
 %changelog
+* Fri Sep 15 2023 Samuel Verschelde <stormi-xcp@ylix.fr> - 0.24.0-29.1
+- Update to 0.24.0-29
+- *** Upstream changelog ***
+- * Tue Aug 15 2023 Rob Hoes <rob.hoes@citrix.com> - 0.24.0-28
+- - Bump release and rebuild
+- [... skipping rebuild-only entries]
+- * Fri Apr 14 2023 Christian Lindig <christian.lindig@citrix.com> - 0.24.0-14
+- - XSI-1404 increase StartLimitBurst to 25
+- [... skipping rebuild-only entries]
+
 * Fri Jul 21 2023 Benjamin Reis <benjamin.reis@vates.fr> - 0.24.0-8.2
 - Rebuild for xs-opam-repo-6.66.0-1.2.xcpng8.3 and xapi-23.3.0-1.6.xcpng8.3
 
