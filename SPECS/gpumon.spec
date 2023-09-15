@@ -1,8 +1,8 @@
-%global package_speccommit 82494ef797dd58c80c970888a36dc904fc0ca04e
+%global package_speccommit 79688b8bcc7967ee814623f9886dce487bfd415b
 %global package_srccommit v0.24.0
 Name:           gpumon
 Version: 0.24.0
-Release: 8%{?xsrel}%{?dist}
+Release: 29%{?xsrel}%{?dist}
 Summary:        RRDD GPU metrics plugin
 Group:          System/Hypervisor
 License:        ISC
@@ -46,6 +46,69 @@ DESTDIR=%{buildroot} %{__make} install
 %{_unitdir}/xcp-rrdd-gpumon.service
 
 %changelog
+* Fri Aug 18 2023 Rob Hoes <rob.hoes@citrix.com> - 0.24.0-29
+- Bump release and rebuild
+
+* Tue Aug 15 2023 Rob Hoes <rob.hoes@citrix.com> - 0.24.0-28
+- Bump release and rebuild
+
+* Thu Aug 03 2023 Pau Ruiz Safont <pau.ruizsafont@cloud.com> - 0.24.0-27
+- Bump release and rebuild
+
+* Wed Aug 02 2023 Pau Ruiz Safont <pau.ruizsafont@cloud.com> - 0.24.0-26
+- Bump release and rebuild
+
+* Thu Jul 27 2023 Rob Hoes <rob.hoes@citrix.com> - 0.24.0-25
+- Bump release and rebuild
+
+* Thu Jul 20 2023 Rob Hoes <rob.hoes@citrix.com> - 0.24.0-24
+- Bump release and rebuild
+
+* Mon Jul 17 2023 Edwin Török <edwin.torok@cloud.com> - 0.24.0-23
+- Bump release and rebuild
+
+* Tue Jul 11 2023 Rob Hoes <rob.hoes@citrix.com> - 0.24.0-22
+- Bump release and rebuild
+
+* Mon Jun 19 2023 Rob Hoes <rob.hoes@citrix.com> - 0.24.0-21
+- Bump release and rebuild
+
+* Fri Jun 09 2023 Rob Hoes <rob.hoes@citrix.com> - 0.24.0-20
+- Bump release and rebuild
+
+* Wed Jun 07 2023 Rob Hoes <rob.hoes@citrix.com> - 0.24.0-19
+- Bump release and rebuild
+
+* Tue Jun 06 2023 Pau Ruiz Safont <pau.ruizsafont@cloud.com> - 0.24.0-18
+- Bump release and rebuild
+
+* Thu May 25 2023 Rob Hoes <rob.hoes@citrix.com> - 0.24.0-17
+- Bump release and rebuild
+
+* Tue May 09 2023 Pau Ruiz Safont <pau.ruizsafont@cloud.com> - 0.24.0-16
+- Bump release and rebuild
+
+* Wed Apr 19 2023 Rob Hoes <rob.hoes@citrix.com> - 0.24.0-15
+- Bump release and rebuild
+
+* Fri Apr 14 2023 Christian Lindig <christian.lindig@citrix.com> - 0.24.0-14
+- XSI-1404 increase StartLimitBurst to 25
+
+* Fri Mar 24 2023 Rob Hoes <rob.hoes@citrix.com> - 0.24.0-13
+- Bump release and rebuild
+
+* Wed Mar 08 2023 Rob Hoes <rob.hoes@citrix.com> - 0.24.0-12
+- Bump release and rebuild
+
+* Thu Mar 02 2023 Rob Hoes <rob.hoes@citrix.com> - 0.24.0-11
+- Bump release and rebuild
+
+* Mon Feb 20 2023 Rob Hoes <rob.hoes@citrix.com> - 0.24.0-10
+- Bump release and rebuild
+
+* Fri Feb 10 2023 Rob Hoes <rob.hoes@citrix.com> - 0.24.0-9
+- Bump release and rebuild
+
 * Wed Feb 08 2023 Pau Ruiz Safont <pau.ruizsafont@cloud.com> - 0.24.0-8
 - Bump release and rebuild
 
