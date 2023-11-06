@@ -8,8 +8,8 @@ Wants=syslog.target
 Environment=OCAMLRUNPARAM=b
 ExecStart=/opt/xensource/libexec/xcp-rrdd-plugins/xcp-rrdd-gpumon
 SuccessExitStatus=0
-# StandardOutput=null
-# StandardError=null
+StandardOutput=null
+StandardError=null
 # restart but fail if more than 25 failures in 30s
 Restart=on-failure
 StartLimitBurst=25
