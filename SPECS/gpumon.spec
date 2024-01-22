@@ -1,8 +1,8 @@
-%global package_speccommit 9219a3f215d6d94f1dfafee86945dcea1748a05c
+%global package_speccommit ad33b6c9a8cb8a069de2058bcdbca4fef210c8a9
 %global package_srccommit v0.25.0
 Name:           gpumon
 Version: 0.25.0
-Release: 1.2%{?xsrel}%{?dist}
+Release: 6.1%{?xsrel}%{?dist}
 Summary:        RRDD GPU metrics plugin
 Group:          System/Hypervisor
 License:        ISC
@@ -49,6 +49,11 @@ DESTDIR=%{buildroot} %{__make} install
 %{_unitdir}/xcp-rrdd-gpumon.service
 
 %changelog
+* Mon Jan 22 2024 Samuel Verschelde <stormi-xcp@ylix.fr> - 0.25.0-6.1
+- Sync with 0.25.0-6
+- *** Upstream changelog ***
+- [only rebuilds]
+
 * Fri Nov 03 2023 Guillaume Thouvenin <guillaume.thouvenin@vates.tech> - 0.25.0-1.2
 - Don't output to stdout/stderr (and thus daemon.log): there already are RRDD logs
 
