@@ -2,7 +2,7 @@
 %global package_srccommit v0.25.0
 Name:           gpumon
 Version: 0.25.0
-Release: 6.1%{?xsrel}%{?dist}
+Release: 6.1%{?xsrel}.0.xen417.2%{?dist}
 Summary:        RRDD GPU metrics plugin
 Group:          System/Hypervisor
 License:        ISC
@@ -49,6 +49,9 @@ DESTDIR=%{buildroot} %{__make} install
 %{_unitdir}/xcp-rrdd-gpumon.service
 
 %changelog
+* Fri Feb 16 2024 Thierry Escande <thierry.escande@vates.tech> - 0.25.0-6.1.0.xen417.2
+- Rebuild for Xen 4.17 test build
+
 * Mon Jan 22 2024 Samuel Verschelde <stormi-xcp@ylix.fr> - 0.25.0-6.1
 - Sync with 0.25.0-6
 - *** Upstream changelog ***
