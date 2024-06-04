@@ -1,8 +1,8 @@
-%global package_speccommit 0c7f1424c05ea80f9fc71bab5e36138ca98a325b
+%global package_speccommit a7fd40befa27aa519bc092822cf1d93b39b1d04b
 %global package_srccommit v0.18.0
 Name:           gpumon
 Version: 0.18.0
-Release: 11.2%{?xsrel}%{?dist}
+Release: 18.1%{?xsrel}%{?dist}
 Summary:        RRDD GPU metrics plugin
 Group:          System/Hypervisor
 License:        ISC
@@ -53,6 +53,25 @@ DESTDIR=%{buildroot} %{__make} install
 %{_unitdir}/xcp-rrdd-gpumon.service
 
 %changelog
+* Tue Jun 04 2024 Gael Duperrey <gduperrey@vates.tech> - 0.18.0-18.1
+- Rebuild after sync with hotfix XS82ECU1064
+- No source changes: only rebuild for dependencies
+- *** Upstream changelog ***
+- * Fri Mar 08 2024 Christian Lindig <christian.lindig@cloud.com> - 0.18.0-18
+- - Bump release and rebuild
+- * Wed Mar 06 2024 Christian Lindig <christian.lindig@cloud.com> - 0.18.0-17
+- - Bump release and rebuild
+- * Tue Mar 05 2024 Christian Lindig <christian.lindig@cloud.com> - 0.18.0-16
+- - Bump release and rebuild
+- * Fri Nov 03 2023 Christian Lindig <christian.lindig@cloud.com> - 0.18.0-15
+- - Bump release and rebuild
+- * Tue Oct 24 2023 Christian Lindig <christian.lindig@cloud.com> - 0.18.0-14
+- - Bump release and rebuild
+- * Tue Oct 24 2023 Christian Lindig <christian.lindig@cloud.com> - 0.18.0-13
+- - Bump release and rebuild
+- * Wed Oct 18 2023 Christian Lindig <christian.lindig@cloud.com> - 0.18.0-12
+- - Bump release and rebuild
+
 * Fri Nov 03 2023 Guillaume Thouvenin <guillaume.thouvenin@vates.tech> - 0.18.0-11.2
 - Don't output to stdout/stderr (and thus daemon.log): there already are RRDD logs
 
