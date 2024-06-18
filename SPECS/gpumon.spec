@@ -1,13 +1,13 @@
-%global package_speccommit 845b93836cd40e8c115bacf2090d3c19daa99d85
-%global package_srccommit v0.25.0
+%global package_speccommit 6f70e4d079e6c38af1f3236c4bfa87f747a87dbd
+%global package_srccommit v24.0.0
 Name:           gpumon
-Version: 0.25.0
-Release: 14%{?xsrel}%{?dist}
+Version: 24.0.0
+Release: 4%{?xsrel}%{?dist}
 Summary:        RRDD GPU metrics plugin
 Group:          System/Hypervisor
 License:        ISC
 URL:            https://github.com/xenserver/gpumon
-Source0: gpumon-0.25.0.tar.gz
+Source0: gpumon-24.0.0.tar.gz
 Source1: xcp-rrdd-gpumon.service
 BuildRoot:      %{_tmppath}/%{name}-%{version}-root
 BuildRequires:  gdk-devel
@@ -46,6 +46,21 @@ DESTDIR=%{buildroot} %{__make} install
 %{_unitdir}/xcp-rrdd-gpumon.service
 
 %changelog
+* Tue Apr 30 2024 Rob Hoes <rob.hoes@citrix.com> - 24.0.0-4
+- Bump release and rebuild
+
+* Mon Apr 15 2024 Pau Ruiz Safont <pau.ruizsafont@cloud.com> - 24.0.0-3
+- Bump release and rebuild
+
+* Tue Apr 09 2024 Pau Ruiz Safont <pau.ruizsafont@cloud.com> - 24.0.0-2
+- Bump release and rebuild
+
+* Mon Mar 18 2024 Rob Hoes <rob.hoes@citrix.com> - 24.0.0-1
+- Re-release with new version number consistent with xapi's version scheme
+
+* Mon Mar 18 2024 Rob Hoes <rob.hoes@citrix.com> - 0.25.0-15
+- Bump release and rebuild
+
 * Thu Feb 29 2024 Rob Hoes <rob.hoes@citrix.com> - 0.25.0-14
 - Bump release and rebuild
 
