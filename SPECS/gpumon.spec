@@ -1,13 +1,13 @@
-%global package_speccommit 6f70e4d079e6c38af1f3236c4bfa87f747a87dbd
-%global package_srccommit v24.0.0
+%global package_speccommit 819902642d42d341e5236aa7b22f86c9558ac57f
+%global package_srccommit v24.1.0
 Name:           gpumon
-Version: 24.0.0
-Release: 4%{?xsrel}%{?dist}
+Version: 24.1.0
+Release: 2%{?xsrel}%{?dist}
 Summary:        RRDD GPU metrics plugin
 Group:          System/Hypervisor
 License:        ISC
 URL:            https://github.com/xenserver/gpumon
-Source0: gpumon-24.0.0.tar.gz
+Source0: gpumon-24.1.0.tar.gz
 Source1: xcp-rrdd-gpumon.service
 BuildRoot:      %{_tmppath}/%{name}-%{version}-root
 BuildRequires:  gdk-devel
@@ -46,6 +46,13 @@ DESTDIR=%{buildroot} %{__make} install
 %{_unitdir}/xcp-rrdd-gpumon.service
 
 %changelog
+* Thu Jun 06 2024 Ming Lu <ming.lu@cloud.com> - 24.1.0-2
+- Bump release and rebuild
+
+* Thu May 23 2024 Ming Lu <ming.lu@cloud.com> - 24.1.0-1
+- CP-48969: log only first time that NVML can't be opened
+- ci: update all actions
+
 * Tue Apr 30 2024 Rob Hoes <rob.hoes@citrix.com> - 24.0.0-4
 - Bump release and rebuild
 
