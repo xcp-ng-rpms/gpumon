@@ -1,8 +1,8 @@
-%global package_speccommit 819902642d42d341e5236aa7b22f86c9558ac57f
+%global package_speccommit df7d3a79ce013e04496d37835b8d93b59008fba2
 %global package_srccommit v24.1.0
 Name:           gpumon
 Version: 24.1.0
-Release: 2.1%{?xsrel}%{?dist}
+Release: 3.1%{?xsrel}%{?dist}
 Summary:        RRDD GPU metrics plugin
 Group:          System/Hypervisor
 License:        ISC
@@ -49,6 +49,12 @@ DESTDIR=%{buildroot} %{__make} install
 %{_unitdir}/xcp-rrdd-gpumon.service
 
 %changelog
+* Fri Aug 09 2024 Samuel Verschelde <stormi-xcp@ylix.fr> - 24.1.0-3.1
+- Sync with 24.1.0-3
+- *** Upstream changelog ***
+- * Mon Jun 10 2024 Pau Ruiz Safont <pau.ruizsafont@cloud.com> - 24.1.0-3
+- - Bump release and rebuild
+
 * Thu Jun 20 2024 Samuel Verschelde <stormi-xcp@ylix.fr> - 24.1.0-2.1
 - Sync with 24.1.0-2
 - *** Upstream changelog ***
@@ -64,6 +70,10 @@ DESTDIR=%{buildroot} %{__make} install
 - [mostly rebuilds]
 - * Mon Mar 18 2024 Rob Hoes <rob.hoes@citrix.com> - 24.0.0-1
 - - Re-release with new version number consistent with xapi's version scheme
+
+* Thu May 23 2024 Ming Lu <ming.lu@cloud.com> - 24.1.0-1
+- CP-48969: log only first time that NVML can't be opened
+- ci: update all actions
 
 * Mon Apr 08 2024 Samuel Verschelde <stormi-xcp@ylix.fr> - 0.25.0-14.1
 - Sync with 0.25.0-14
