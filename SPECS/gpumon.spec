@@ -1,8 +1,8 @@
-%global package_speccommit df7d3a79ce013e04496d37835b8d93b59008fba2
+%global package_speccommit c1b73d08d4db96d34e338ccf9c04ed17226fad77
 %global package_srccommit v24.1.0
 Name:           gpumon
 Version: 24.1.0
-Release: 3%{?xsrel}%{?dist}
+Release: 8%{?xsrel}%{?dist}
 Summary:        RRDD GPU metrics plugin
 Group:          System/Hypervisor
 License:        ISC
@@ -46,6 +46,21 @@ DESTDIR=%{buildroot} %{__make} install
 %{_unitdir}/xcp-rrdd-gpumon.service
 
 %changelog
+* Tue Jul 16 2024 Ming Lu <ming.lu@cloud.com> - 24.1.0-8
+- Bump release and rebuild
+
+* Tue Jul 09 2024 Ming Lu <ming.lu@cloud.com> - 24.1.0-7
+- Bump release and rebuild
+
+* Tue Jul 09 2024 Ming Lu <ming.lu@cloud.com> - 24.1.0-6
+- Bump release and rebuild
+
+* Mon Jul 01 2024 Ming Lu <ming.lu@cloud.com> - 24.1.0-5
+- Bump release and rebuild
+
+* Tue Jun 18 2024 Ming Lu <ming.lu@cloud.com> - 24.1.0-4
+- Bump release and rebuild
+
 * Mon Jun 10 2024 Pau Ruiz Safont <pau.ruizsafont@cloud.com> - 24.1.0-3
 - Bump release and rebuild
 
