@@ -1,8 +1,8 @@
-%global package_speccommit a7fd40befa27aa519bc092822cf1d93b39b1d04b
+%global package_speccommit c82417d6cf102a276176259aa7e665c60589585f
 %global package_srccommit v0.18.0
 Name:           gpumon
 Version: 0.18.0
-Release: 18.1%{?xsrel}%{?dist}
+Release: 20.1%{?xsrel}%{?dist}
 Summary:        RRDD GPU metrics plugin
 Group:          System/Hypervisor
 License:        ISC
@@ -53,6 +53,15 @@ DESTDIR=%{buildroot} %{__make} install
 %{_unitdir}/xcp-rrdd-gpumon.service
 
 %changelog
+* Thu Oct 24 2024 Gael Duperrey <gduperrey@vates.tech> - 0.18.0-20.1
+- Rebuild after sync with hotfix XS82ECU1074
+- No source changes: only rebuild for dependencies
+- *** Upstream changelog ***
+- * Thu Aug 29 2024 Christian Lindig <christian.lindig@cloud.com> - 0.18.0-20
+- - Bump release and rebuild
+- * Wed Jun 19 2024 Christian Lindig <christian.lindig@cloud.com> - 0.18.0-19
+- - Bump release and rebuild
+
 * Tue Jun 04 2024 Gael Duperrey <gduperrey@vates.tech> - 0.18.0-18.1
 - Rebuild after sync with hotfix XS82ECU1064
 - No source changes: only rebuild for dependencies
