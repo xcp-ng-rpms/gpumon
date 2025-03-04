@@ -3,6 +3,7 @@ Description=GPU monitor RRD plugin
 After=xcp-rrdd.service syslog.target
 Requires=xcp-rrdd.service
 Wants=syslog.target
+PartOf=toolstack.target
 
 [Service]
 Environment=OCAMLRUNPARAM=b
