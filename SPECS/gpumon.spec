@@ -1,8 +1,8 @@
-%global package_speccommit c1b73d08d4db96d34e338ccf9c04ed17226fad77
+%global package_speccommit 7506ad6445b3c92f144f96b10fcafb981bbef8fb
 %global package_srccommit v24.1.0
 Name:           gpumon
 Version: 24.1.0
-Release: 8%{?xsrel}%{?dist}
+Release: 32%{?xsrel}%{?dist}
 Summary:        RRDD GPU metrics plugin
 Group:          System/Hypervisor
 License:        ISC
@@ -46,6 +46,72 @@ DESTDIR=%{buildroot} %{__make} install
 %{_unitdir}/xcp-rrdd-gpumon.service
 
 %changelog
+* Mon Nov 25 2024 Gang Ji <gang.ji@cloud.com> - 24.1.0-32
+- Bump release and rebuild
+
+* Wed Nov 13 2024 Christian Lindig <christian.lindig@cloud.com> - 24.1.0-31
+- Bump release and rebuild
+
+* Tue Nov 12 2024 Christian Lindig <christian.lindig@cloud.com> - 24.1.0-30
+- Bump release and rebuild
+
+* Mon Nov 11 2024 Christian Lindig <christian.lindig@cloud.com> - 24.1.0-29
+- Bump release and rebuild
+
+* Tue Oct 29 2024 Christian Lindig <christian.lindig@cloud.com> - 24.1.0-28
+- Bump release and rebuild
+
+* Wed Oct 23 2024 Christian Lindig <christian.lindig@cloud.com> - 24.1.0-27
+- Bump release and rebuild
+
+* Mon Oct 21 2024 Christian Lindig <christian.lindig@cloud.com> - 24.1.0-26
+- Bump release and rebuild
+
+* Mon Oct 14 2024 Christian Lindig <christian.lindig@cloud.com> - 24.1.0-25
+- Bump release and rebuild
+
+* Thu Oct 10 2024 Christian Lindig <christian.lindig@cloud.com> - 24.1.0-24
+- Bump release and rebuild
+
+* Thu Oct 03 2024 Christian Lindig <christian.lindig@citrix.com> - 24.1.0-23
+- Bump release and rebuild
+
+* Mon Sep 23 2024 Pau Ruiz Safont <pau.ruizsafont@cloud.com> - 24.1.0-22
+- Bump release and rebuild
+
+* Mon Sep 16 2024 Christian Lindig <christian.lindig@citrix.com> - 24.1.0-21
+- Bump release and rebuild
+
+* Tue Sep 10 2024 Christian Lindig <christian.lindig@citrix.com> - 24.1.0-20
+- Bump release and rebuild
+
+* Thu Sep 05 2024 Christian Lindig <christian.lindig@citrix.com> - 24.1.0-19
+- Bump release and rebuild
+
+* Wed Sep 04 2024 Christian Lindig <christian.lindig@citrix.com> - 24.1.0-18
+- Bump release and rebuild
+
+* Thu Aug 29 2024 Christian Lindig <christian.lindig@citrix.com> - 24.1.0-15
+- Bump release and rebuild
+
+* Thu Aug 22 2024 Christian Lindig <christian.lindig@citrix.com> - 24.1.0-14
+- Bump release and rebuild
+
+* Tue Aug 20 2024 Christian Lindig <christian.lindig@citrix.com> - 24.1.0-13
+- Bump release and rebuild
+
+* Thu Aug 15 2024 Ming Lu <ming.lu@cloud.com> - 24.1.0-12
+- Bump release and rebuild
+
+* Fri Jul 26 2024 Pau Ruiz Safont <pau.ruizsafont@cloud.com> - 24.1.0-11
+- Bump release and rebuild
+
+* Thu Jul 25 2024 Ming Lu <ming.lu@cloud.com> - 24.1.0-10
+- Bump release and rebuild
+
+* Wed Jul 24 2024 Ming Lu <ming.lu@cloud.com> - 24.1.0-9
+- Bump release and rebuild
+
 * Tue Jul 16 2024 Ming Lu <ming.lu@cloud.com> - 24.1.0-8
 - Bump release and rebuild
 
