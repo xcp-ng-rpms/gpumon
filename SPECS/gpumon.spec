@@ -80,10 +80,6 @@ DESTDIR=%{buildroot} %{__make} install
 - * Mon Mar 18 2024 Rob Hoes <rob.hoes@citrix.com> - 24.0.0-1
 - - Re-release with new version number consistent with xapi's version scheme
 
-* Thu May 23 2024 Ming Lu <ming.lu@cloud.com> - 24.1.0-1
-- CP-48969: log only first time that NVML can't be opened
-- ci: update all actions
-
 * Mon Apr 08 2024 Samuel Verschelde <stormi-xcp@ylix.fr> - 0.25.0-14.1
 - Sync with 0.25.0-14
 - *** Upstream changelog ***
