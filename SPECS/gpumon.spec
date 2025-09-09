@@ -1,8 +1,8 @@
-%global package_speccommit e50f181cf2816945a8f025681dcaadee46bec9bd
+%global package_speccommit 43fde2e1f43e8b61680a18d8060bf4bc37176f8b
 %global package_srccommit v24.1.0
 Name:           gpumon
 Version: 24.1.0
-Release: 40%{?xsrel}%{?dist}
+Release: 64%{?xsrel}%{?dist}
 Summary:        RRDD GPU metrics plugin
 Group:          System/Hypervisor
 License:        ISC
@@ -46,6 +46,78 @@ DESTDIR=%{buildroot} %{__make} install
 %{_unitdir}/xcp-rrdd-gpumon.service
 
 %changelog
+* Wed Jul 16 2025 Rob Hoes <rob.hoes@citrix.com> - 24.1.0-64
+- Bump release and rebuild
+
+* Sun Jul 13 2025 Bengang Yuan <bengang.yuan@cloud.com> - 24.1.0-63
+- Bump release and rebuild
+
+* Sun Jul 06 2025 Bengang Yuan <bengang.yuan@cloud.com> - 24.1.0-62
+- Bump release and rebuild
+
+* Wed Jun 25 2025 Bengang Yuan <bengang.yuan@cloud.com> - 24.1.0-61
+- Bump release and rebuild
+
+* Thu Jun 12 2025 Pau Ruiz Safont <pau.ruizsafont@cloud.com> - 24.1.0-60
+- Bump release and rebuild
+
+* Wed Jun 11 2025 Pau Ruiz Safont <pau.ruizsafont@cloud.com> - 24.1.0-59
+- Bump release and rebuild
+
+* Tue Jun 10 2025 Bengang Yuan <bengang.yuan@cloud.com> - 24.1.0-58
+- Bump release and rebuild
+
+* Mon Jun 09 2025 Bengang Yuan <bengang.yuan@cloud.com> - 24.1.0-57
+- Bump release and rebuild
+
+* Fri Jun 06 2025 Bengang Yuan <bengang.yuan@cloud.com> - 24.1.0-56
+- Bump release and rebuild
+
+* Fri May 23 2025 Pau Ruiz Safont <pau.ruizsafont@cloud.com> - 24.1.0-55
+- Bump release and rebuild
+
+* Fri May 23 2025 Bengang Yuan <bengang.yuan@cloud.com> - 24.1.0-54
+- Bump release and rebuild
+
+* Thu May 15 2025 Bengang Yuan <bengang.yuan@cloud.com> - 24.1.0-53
+- Bump release and rebuild
+
+* Fri May 09 2025 Bengang Yuan <bengang.yuan@cloud.com> - 24.1.0-52
+- Bump release and rebuild
+
+* Thu Apr 24 2025 Bengang Yuan <bengang.yuan@cloud.com> - 24.1.0-51
+- Bump release and rebuild
+
+* Tue Apr 15 2025 Vincent Liu <shuntian.liu2@cloud.com> - 24.1.0-50
+- Bump release and rebuild
+
+* Tue Apr 08 2025 Vincent Liu <shuntian.liu2@cloud.com> - 24.1.0-49
+- Bump release and rebuild
+
+* Tue Mar 18 2025 Vincent Liu <shuntian.liu2@cloud.com> - 24.1.0-48
+- Bump release and rebuild
+
+* Mon Mar 17 2025 Vincent Liu <shuntian.liu2@cloud.com> - 24.1.0-47
+- Bump release and rebuild
+
+* Tue Mar 11 2025 Vincent Liu <shuntian.liu2@cloud.com> - 24.1.0-46
+- Bump release and rebuild
+
+* Fri Mar 07 2025 Vincent Liu <shuntian.liu2@cloud.com> - 24.1.0-45
+- Bump release and rebuild
+
+* Mon Mar 03 2025 Vincent Liu <shuntian.liu2@cloud.com> - 24.1.0-44
+- Bump release and rebuild
+
+* Wed Feb 26 2025 Vincent Liu <shuntian.liu2@cloud.com> - 24.1.0-43
+- Bump release and rebuild
+
+* Mon Feb 24 2025 Vincent Liu <shuntian.liu2@cloud.com> - 24.1.0-42
+- Bump release and rebuild
+
+* Wed Feb 12 2025 Vincent Liu <shuntian.liu2@cloud.com> - 24.1.0-41
+- Bump release and rebuild
+
 * Mon Feb 10 2025 Vincent Liu <shuntian.liu2@cloud.com> - 24.1.0-40
 - Bump release and rebuild
 
