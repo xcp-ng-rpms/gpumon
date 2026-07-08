@@ -2,7 +2,7 @@
 %global package_srccommit v24.1.0
 Name:           gpumon
 Version: 24.1.0
-Release: 93%{?xsrel}%{?dist}
+Release: 93%{?xsrel}~xcptest.1%{?dist}
 Summary:        RRDD GPU metrics plugin
 Group:          System/Hypervisor
 License:        ISC
