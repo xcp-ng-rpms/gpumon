@@ -1,8 +1,8 @@
-%global package_speccommit 48d4645a07f728830ebbfce3833044bb5b9a3218
+%global package_speccommit 6344a86ac4273f2021e670dfe98f8310228ff1da
 %global package_srccommit v24.1.0
 Name:           gpumon
 Version: 24.1.0
-Release: 96%{?xsrel}.1%{?dist}
+Release: 98%{?xsrel}.1%{?dist}
 Summary:        RRDD GPU metrics plugin
 Group:          System/Hypervisor
 License:        ISC
@@ -49,6 +49,11 @@ DESTDIR=%{buildroot} %{__make} install
 %{_unitdir}/xcp-rrdd-gpumon.service
 
 %changelog
+* Tue Sep 01 2026 Andrii Sultanov <andriy.sultanov@vates.tech> - 24.1.0-98.1
+- Sync with 24.1.0-98
+- *** Upstream changelog ***
+  [only rebuilds]
+
 * Tue Aug 11 2026 Andrii Sultanov <andriy.sultanov@vates.tech> - 24.1.0-96.1
 - Sync with 24.1.0-96
 - *** Upstream changelog ***
